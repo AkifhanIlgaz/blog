@@ -1,8 +1,7 @@
-package com.zozak.blog.service.impl;
+package com.zozak.blog.security;
 
 import com.zozak.blog.domain.entity.User;
 import com.zozak.blog.repository.UserRepository;
-import com.zozak.blog.security.BlogUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
