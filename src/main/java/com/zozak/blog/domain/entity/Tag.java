@@ -33,8 +33,9 @@ public class Tag {
     @Column(nullable = false, unique = true)
     private String name;
 
+    @Builder.Default
     @ManyToMany(mappedBy = "tags")
-    private final Set<Post> posts = new HashSet<>();
+    private Set<Post> posts = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
