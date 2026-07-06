@@ -50,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.delete(category);
     }
 
-    private Category getCategoryById(UUID id) {
+    public Category getCategoryById(UUID id) {
         return categoryRepository
             .findById(id)
             .orElseThrow(() ->

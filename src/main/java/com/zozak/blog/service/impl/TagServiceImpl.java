@@ -4,6 +4,7 @@ import com.zozak.blog.domain.entity.Post;
 import com.zozak.blog.domain.entity.Tag;
 import com.zozak.blog.repository.TagRepository;
 import com.zozak.blog.service.TagService;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -65,5 +66,14 @@ public class TagServiceImpl implements TagService {
             }
             tagRepository.deleteById(tagId);
         });
+    }
+
+    @Override
+    public Tag getTagById(UUID id) {
+        return tagRepository
+            .findById(id)
+            .orElseThrow(() ->
+                new EntityNotFoundException("Tag not found with id: " + id)
+            );
     }
 }
