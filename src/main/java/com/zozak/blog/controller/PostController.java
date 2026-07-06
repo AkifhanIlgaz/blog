@@ -2,6 +2,7 @@ package com.zozak.blog.controller;
 
 import com.zozak.blog.domain.dto.PostDto;
 import com.zozak.blog.domain.entity.Post;
+import com.zozak.blog.domain.entity.User;
 import com.zozak.blog.mapper.PostMapper;
 import com.zozak.blog.service.PostService;
 import com.zozak.blog.service.UserService;
@@ -10,6 +11,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +32,21 @@ public class PostController {
     ) {
         List<Post> posts = postService.getAllPosts(categoryId, tagId);
         List<PostDto> postDtos = posts.stream().map(postMapper::toDto).toList();
+
+        return ResponseEntity.ok(postDtos);
+    }
+
+    @GetMapping("/drafts")
+    public ResponseEntity<List<PostDto>> getDrafts(
+        @RequestAttribute UUID userId
+    ) {
+        User loggedInUser = userService.getUserById(userId);
+
+        List<Post> draftPosts = postService.getDraftPosts(loggedInUser);
+        List<PostDto> postDtos = draftPosts
+            .stream()
+            .map(postMapper::toDto)
+            .toList();
 
         return ResponseEntity.ok(postDtos);
     }

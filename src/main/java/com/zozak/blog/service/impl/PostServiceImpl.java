@@ -4,6 +4,7 @@ import com.zozak.blog.domain.PostStatus;
 import com.zozak.blog.domain.entity.Category;
 import com.zozak.blog.domain.entity.Post;
 import com.zozak.blog.domain.entity.Tag;
+import com.zozak.blog.domain.entity.User;
 import com.zozak.blog.repository.PostRepository;
 import com.zozak.blog.service.CategoryService;
 import com.zozak.blog.service.PostService;
@@ -52,5 +53,10 @@ public class PostServiceImpl implements PostService {
         }
 
         return postRepository.findAllByStatus(PostStatus.PUBLISHED);
+    }
+
+    @Override
+    public List<Post> getDraftPosts(User user) {
+        return postRepository.findAllByAuthorAndStatus(user, PostStatus.DRAFT);
     }
 }
