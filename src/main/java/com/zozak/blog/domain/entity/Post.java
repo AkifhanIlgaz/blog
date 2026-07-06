@@ -73,7 +73,8 @@ public class Post {
         joinColumns = @JoinColumn(name = "post_id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private final Set<Tag> tags = new HashSet<>();
+    @Builder.Default
+    private Set<Tag> tags = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
